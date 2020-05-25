@@ -1,3 +1,3 @@
-ps:scale web=1 worker=1
-web: python3 run.py
+ps:scale web=0 worker=2
+worker: python3 run.py
 worker: java -jar Lavalink.jar
