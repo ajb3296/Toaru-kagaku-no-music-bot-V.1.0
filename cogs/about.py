@@ -9,11 +9,10 @@ class About (commands.Cog) :
 
     @commands.command (aliases = ['봇', '개발자', '기부', '봇정보', '봇관련', '관련', '정보'])
     async def about (self, ctx) :
-        about_cmd = """Chiyo(치요)#0720 에서 파생된 속도를 중시한 음악봇!
+        about_cmd = """<@681407435914870800> 에서 파생된 속도를 중시한 음악봇!
 
 저의 자세한 사용법에 대해서는 `%shelp` 을(를) 사용해 주세요.
-Github : 는 무슨 코드공개 아직 안합니다.
-Chiyo(치요)#0720 의 발전을 위한 랜선 혹은 다른 기부문의는? <@%s> 에게!""" %(commandInt, str(OWNERS).replace("[", "").replace("]", ""))
+어마음과 <@681407435914870800> 의 발전을 위한 랜선 혹은 다른 기부문의는? <@%s> 에게!""" %(commandInt, str(OWNERS).replace("[", "").replace("]", ""))
         embed=discord.Embed(title="**봇에 대한 정보**", description=about_cmd, color=color_code)
         embed.add_field(name="서버수", value=len(self.bot.guilds), inline=True)
         embed.add_field(name="유저수", value=len(self.bot.users), inline=True)
