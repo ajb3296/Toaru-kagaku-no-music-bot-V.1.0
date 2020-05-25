@@ -2,6 +2,8 @@ import discord
 import asyncio
 import logging
 import sys
+import multiprocessing
+from lavalinkstart import *
 from discord.ext import commands
 from config import TOKEN, EXTENSIONS, OWNERS, commandInt, BOT_NAME, BOT_TAG, BOT_VER, BOT_NAME_TAG_VER
 from utils import *
@@ -40,6 +42,8 @@ class  Toaru_kagaku_no_music_bot (commands.Bot) :
             LOGGER.error("3.6 버전 이상의 Python 이 있어야 합니다. 여러 기능이 해당 Python3.6 버전을 따릅니다. 봇 종료.")
             quit(1)
       
+        process = multiprocessing.Process(target=child_process)
+        process.start()
 
         for i in EXTENSIONS :
             self.load_extension (i)
