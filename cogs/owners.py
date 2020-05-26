@@ -114,11 +114,6 @@ class Owners (commands.Cog) :
             if not m[0:3] == "*~~":
                 modulenum += 1
         modulenum = "%s 개의 모듈들이 로드되어 있습니다." %modulenum
-        '''
-        e1 = ""
-        for e in EXTENSIONS:
-            e1 = f"{e1}\n{e}"
-        '''
         e1 = "\n".join(EXTENSIONS)
         embed=discord.Embed(title="**모듈 리스트**", color=color_code)
         embed.add_field(name=modulenum, value=e1, inline=False)
