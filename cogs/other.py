@@ -29,6 +29,7 @@ class Other (commands.Cog) :
         embed.add_field(name="CPU Usage", value=str(psutil.cpu_percent()) +"%", inline=False)
         memorystr = str(round((psutil.virtual_memory().used / (1024.0 ** 3)), 1)) + "GB" + " / " + str(round((psutil.virtual_memory().total / (1024.0 ** 3)), 1)) + "GB"
         embed.add_field(name="Memory Usage", value=memorystr, inline=False)
+        embed.add_field(name="Python Ver", value=platform.python_compiler(), inline=False)
         embed.add_field(name="Ping", value=str(round(self.bot.latency * 1000)) + "ms", inline=False)
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
