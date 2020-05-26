@@ -1,2 +1,2 @@
 ps:scale web=0 worker=1
-worker: python3 run.py
+worker: pypy3 run.py
