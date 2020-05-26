@@ -29,7 +29,7 @@ class Melon_chart (commands.Cog) :
         embed=discord.Embed(title="**멜론 차트**", description="오늘의 멜론 차트에요!", color=color_code)
         num = 1
         for i in range(0, 10) :
-            embed.add_field(name=str(num) + "위", value = f"{title[i]} - {song[i]}", inline=False)
+            embed.add_field(name=f"{str(num)} 위", value = f"{title[i]} - {song[i]}", inline=False)
             num += 1
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
