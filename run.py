@@ -6,23 +6,28 @@ import time
 import multiprocessing
 from lavalinkstart import *
 from discord.ext import commands
-from config import TOKEN, EXTENSIONS, OWNERS, commandInt, BOT_NAME, BOT_TAG, BOT_VER, BOT_NAME_TAG_VER
+from config import *
 from utils import *
 
 async def status_task():
     while True:
-        await bot.change_presence(
-            activity = discord.Game ("%shelp : 도움말" %commandInt)
-        )
-        await asyncio.sleep(10)
-        await bot.change_presence(
-            activity = discord.Game ("%d 개의 서버에서 놀고있어요!" %len(bot.guilds))
-        )
-        await asyncio.sleep(10)
-        await bot.change_presence(
-            activity = discord.Game ("%d 명의 유저들과 놀고있어요!" %len(bot.users))
-        )
-        await asyncio.sleep(10)
+        try:
+            await bot.change_presence(
+                activity = discord.Game ("%shelp : 도움말" %commandInt)
+            )
+            await asyncio.sleep(10)
+            await bot.change_presence(
+                activity = discord.Game ("%d 개의 서버에서 놀고있어요!" %len(bot.guilds))
+            )
+            await asyncio.sleep(10)
+            await bot.change_presence(
+                activity = discord.Game ("%d 명의 유저들과 놀고있어요!" %len(bot.users))
+            )
+            await asyncio.sleep(10)
+        except websockets.exceptions.ConnectionClosedError:
+            pass
+        except:
+            pass
 
 class  Toaru_kagaku_no_music_bot (commands.Bot) :
     def __init__ (self) :
