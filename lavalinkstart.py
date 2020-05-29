@@ -1,7 +1,7 @@
 from os import system, environ, popen
 import multiprocessing
 
-class child_process:
+def child_process():
     print(f"Child process PID : {multiprocessing.current_process().pid}")
     LavalinkBootstrap().run()
 
