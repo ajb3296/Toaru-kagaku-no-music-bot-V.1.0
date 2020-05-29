@@ -3,6 +3,8 @@ import multiprocessing
 
 def child_process():
     print(f"Child process PID : {multiprocessing.current_process().pid}")
+    PASSWORD = "ajb8521580@"
+    #DYNAMICPORT = 2333
     LavalinkBootstrap().run()
 
 class LavalinkBootstrap:
