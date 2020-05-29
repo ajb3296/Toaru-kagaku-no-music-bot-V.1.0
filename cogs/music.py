@@ -44,7 +44,7 @@ class Music(commands.Cog):
         ws = self.bot._connection._get_websocket(guild_id)
         await ws.voice_state(str(guild_id), channel_id)
 
-    @commands.command(aliases=['p', '재생', 'ㅔ'])
+    @commands.command(aliases=['p', '재생', 'ㅔ', 'add'])
     async def play(self, ctx, *, query: str):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         query = query.strip('<>')
