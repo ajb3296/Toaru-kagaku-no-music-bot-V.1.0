@@ -16,7 +16,7 @@ class Music(commands.Cog):
         self.not_playing = "음악이 재생되고 있지 않습니다!"
         if not hasattr(bot, 'lavalink'):  # This ensures the client isn't overwritten during cog reloads.
             bot.lavalink = lavalink.Client(self._)
-            bot.lavalink.add_node('127.0.0.1', 2333, 'ajb8521580@', 'en', 'ajb8533296')  # Host, Port, Password, Region, Name
+            bot.lavalink.add_node('0.0.0.0', 80, 'ajb8521580@', 'en', 'ajb8533296')  # Host, Port, Password, Region, Name
             bot.add_listener(bot.lavalink.voice_update_handler, 'on_socket_response')
         bot.lavalink.add_event_hook(self.track_hook)
 
