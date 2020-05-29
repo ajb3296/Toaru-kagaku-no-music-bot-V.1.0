@@ -102,9 +102,7 @@ class LavalinkBootstrap:
         try:
             r = requests.get(f"https://github.com/Frederikam/Lavalink/releases/download/{self._version_number}/Lavalink.jar", allow_redirects=True)
             open('Lavalink.jar', 'wb').write(r.content)
-            #system(
-                self.download_command
-            )
+            #system(self.download_command)
         
         except BaseException as exc:
 
