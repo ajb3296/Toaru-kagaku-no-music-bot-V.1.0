@@ -3,8 +3,6 @@ EXTENSIONS = ['cogs.owners',
             'cogs.help',
             'cogs.other',
             'cogs.ping',
-            'cogs.Naver_real_time_search_term',
-            'cogs.melon',
             'cogs.about',
             'cogs.music']
 OWNERS = [283867737820889089]
