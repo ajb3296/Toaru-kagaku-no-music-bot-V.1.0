@@ -13,7 +13,7 @@ class LavalinkBootstrap:
     """
     
     def prepare_version_number(self):
-        self._version_number = requests.get(browser_download_url)
+        self._version_number = requests.get("https://api.github.com/repos/Cog-Creators/Lavalink-Jars/releases/latest")
         self._version_number = self._version_number["browser_download_url"]
         '''
         self._version_number = popen(
