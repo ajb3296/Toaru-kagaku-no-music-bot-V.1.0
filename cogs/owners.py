@@ -1,5 +1,5 @@
 import discord
-import multiprocessing
+import subprocess
 import ast
 import asyncio
 from discord.ext import commands
