@@ -37,12 +37,12 @@ class LavalinkBootstrap:
 
         self.replace_password_command = 'sed -i "s|DYNAMICPASSWORD|$PASSWORD|" application.yml'
         self.replace_password_command_no_password = 'sed -i "s|DYNAMICPASSWORD|youshallnotpass|" application.yml'
-        '''
+        
         self._additional_options = environ.get(
-            "-Djdk.tls.client.protocols=TLSv1.2"
+            "-XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC"
         ) # Heroku provides basic Java configuration based on dyno size, no need in limiting memory
-        '''
-        self.run_command = f"java -jar Lavalink.jar" # User-provided config, will override heroku's
+        
+        self.run_command = f"java -jar Lavalink.jar {self._additional_options} -Djdk.tls.client.protocols=TLSv1.2" # User-provided config, will override heroku's
 
     def replace_password_and_port(self):
 
