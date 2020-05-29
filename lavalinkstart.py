@@ -1,6 +1,6 @@
 from os import system, environ, popen
 import multiprocessing
-from utils.crawler import getReqJSON
+import requests
 
 def child_process():
     print(f"Child process PID : {multiprocessing.current_process().pid}")
@@ -13,7 +13,7 @@ class LavalinkBootstrap:
     """
     
     def prepare_version_number(self):
-        self._version_number = await getReqJSON (browser_download_url)
+        self._version_number = requests.get(browser_download_url)
         self._version_number = self._version_number["browser_download_url"]
         '''
         self._version_number = popen(
