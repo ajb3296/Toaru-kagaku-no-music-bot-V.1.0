@@ -14,17 +14,11 @@ class LavalinkBootstrap:
     """
     
     def prepare_version_number(self):
-        '''
-        self._version_number = requests.get("https://api.github.com/repos/Cog-Creators/Lavalink-Jars/releases/latest")
-        self._version_number = json.loads(self._version_number)
-        self._version_number = self._version_number["browser_download_url"]
-        '''
         self._version_number = popen(
             
             """curl --silent "https://api.github.com/repos/Cog-Creators/Lavalink-Jars/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'"""
           
         ).read().strip()
-        print(self._version_number)
         
 
     def __init__(self):
@@ -106,8 +100,9 @@ class LavalinkBootstrap:
         )
         
         try:
-            
-            system(
+            r = requests.get(f"https://github.com/Frederikam/Lavalink/releases/download/{self._version_number}/Lavalink.jar", allow_redirects=True)
+            open('Lavalink.jar', 'wb').write(r.content)
+            #system(
                 self.download_command
             )
         
