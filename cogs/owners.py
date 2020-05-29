@@ -119,6 +119,28 @@ class Owners (commands.Cog) :
         embed.add_field(name=modulenum, value=e1, inline=False)
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
+        
+    @commands.command()
+    @is_owner()
+    async def shell(self, ctx, *arg) :
+        try :
+            cmd = " ".join(arg[:])
+            res = subprocess.check_output(cmd, shell=True, encoding='utf-8')
+            embed=discord.Embed(title="**명령어 전달 성공!**", description = "명령어를 성공적으로 서버로 전달했어요.", color=self.color)
+            embed.add_field (name ="Input", value = f'```{cmd}```', inline=False)
+            embed.add_field(name="Output", value=f"```{res}```", inline=False)
+            footer(embed)
+            await ctx.send(embed=embed)
+
+        except (discord.errors.HTTPException) :
+            cmd = " ".join(arg[:])
+            res = subprocess.check_output(cmd, shell=True, encoding='utf-8')
+            await ctx.send("```" + res + "```")
+         
+        except (subprocess.CalledProcessError) :
+            embed=discord.Embed(title="**Command Error!**", description="An error occured while processing command.", color=self.color)
+            footer(embed)
+            await ctx.send(embed=embed)
 
 def setup (bot) :
     bot.add_cog (Owners (bot))
