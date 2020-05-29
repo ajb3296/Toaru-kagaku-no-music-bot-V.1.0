@@ -46,7 +46,7 @@ class  Toaru_kagaku_no_music_bot (commands.Bot) :
             LOGGER.error("3.6 버전 이상의 Python 이 있어야 합니다. 여러 기능이 해당 Python3.6 버전을 따릅니다. 봇 종료.")
             quit(1)
       
-        process = multiprocessing.Process(target=child_process, args=lavalinklink)
+        process = multiprocessing.Process(target=child_process, args=(lavalinklink, ))
         process.start()
         #time.sleep(20)
 
