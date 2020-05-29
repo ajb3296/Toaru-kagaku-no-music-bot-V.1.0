@@ -75,8 +75,8 @@ class Music(commands.Cog):
         embed.set_image(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
-        if not player.is_playing:
-            await player.play()
+        #if not player.is_playing:
+        await player.play()
 
     @commands.command(aliases=['탐색'])
     async def seek(self, ctx, *, seconds: int):
