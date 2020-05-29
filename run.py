@@ -48,7 +48,7 @@ class  Toaru_kagaku_no_music_bot (commands.Bot) :
       
         process = multiprocessing.Process(target=child_process)
         process.start()
-        time.sleep(20)
+        #time.sleep(20)
 
         for i in EXTENSIONS :
             self.load_extension (i)
