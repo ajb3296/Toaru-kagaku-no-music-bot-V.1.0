@@ -1,6 +1,6 @@
 from os import system, environ, popen
 import multiprocessing
-import requests
+from urllib import request
 import json
 
 def child_process():
@@ -100,8 +100,7 @@ class LavalinkBootstrap:
         )
         
         try:
-            r = requests.get(f"https://github.com/Frederikam/Lavalink/releases/download/{self._version_number}/Lavalink.jar", allow_redirects=True)
-            open('Lavalink.jar', 'wb').write(r.content)
+            request.urlretrieve(f"https://github.com/Frederikam/Lavalink/releases/download/{self._version_number}/Lavalink.jar", "Lavalink.jar")
             #system(self.download_command)
         
         except BaseException as exc:
