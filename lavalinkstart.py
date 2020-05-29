@@ -5,4 +5,4 @@ from urllib import request
 def child_process(link):
     print(f"Child process PID : {multiprocessing.current_process().pid}")
     request.urlretrieve(link, "Lavalink.jar")
-    os.system("java -jar Lavalink.jar -Djdk.tls.client.protocols=TLSv1.2")
+    os.system("java -jar Lavalink.jar")
