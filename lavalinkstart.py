@@ -128,15 +128,16 @@ class LavalinkBootstrap:
         print(
             "[INFO] Starting Lavalink..."
         )
-
+        system("java -jar Lavalink.jar -Djdk.tls.client.protocols=TLSv1.2")
+        '''
         try:
 
-            system(
-                self.run_command
-            )
+            #system(self.run_command)
+            
         
         except BaseException as exc:
 
             print(
                 f"[ERROR] Failed to start Lavalink. Info: {exc}"
             )
+        '''
