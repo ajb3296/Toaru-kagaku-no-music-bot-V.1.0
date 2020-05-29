@@ -16,7 +16,7 @@ class LavalinkBootstrap:
     def prepare_version_number(self):
         self._version_number = popen(
             
-            """curl --silent "https://api.github.com/repos/Cog-Creators/Lavalink-Jars/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'"""
+            """curl --silent "https://api.github.com/repos/Cog-Creators/Lavalink-Jars/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")'"""
           
         ).read().strip()
         
@@ -100,7 +100,7 @@ class LavalinkBootstrap:
         )
         
         try:
-            request.urlretrieve(f"https://github.com/Frederikam/Lavalink/releases/download/{self._version_number}/Lavalink.jar", "Lavalink.jar")
+            request.urlretrieve(self._version_number, "Lavalink.jar")
             #system(self.download_command)
         
         except BaseException as exc:
