@@ -24,8 +24,6 @@ async def status_task():
                 activity = discord.Game ("%d 명의 유저들과 놀고있어요!" %len(bot.users))
             )
             await asyncio.sleep(10)
-        except websockets.exceptions.ConnectionClosedError:
-            pass
         except:
             pass
 
