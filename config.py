@@ -14,4 +14,4 @@ BOT_ID = 714140461840728144
 BOT_NAME_TAG_VER = "%s%s | %s" %(BOT_NAME, BOT_TAG, BOT_VER)
 color_code = 0xc68e6e
 
-lavalinklink = "https://ci.fredboat.com/repository/download/Lavalink_Build/8110:id/Lavalink.jar"
+lavalinklink = "https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.3.1_1050/Lavalink.jar"
