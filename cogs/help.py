@@ -19,7 +19,8 @@ class Help (commands.Cog) :
 
             if "cogs.other" in EXTENSIONS:
                 embed.add_field(name="`%s초대`" %commandInt, value="저랑 다른 서버에서 놀고싶으세요? 당신이 서버의 관리자라면 저를 서버에 초대할 수 있어요!", inline=True)
-                embed.add_field(name="`%sserverinfo`" %commandInt, value="봇 서버의 사양을 알려줘요!", inline=True)
+                embed.add_field(name="`%sjava`" %commandInt, value="서버에 설치된 자바 버전을 알려드려요!", inline=True)
+                embed.add_field(name="`%suptime`" %commandInt, value="서버가 부팅으로부터 얼마나 지났는지를 알려드려요!", inline=True)
             
             if "cogs.Naver_real_time_search_term" in EXTENSIONS:
                 embed.add_field(name="`%s네이버실검`" %commandInt, value="네이버 실시간 검색어 순위를 알려드려요.", inline=True)
@@ -59,6 +60,7 @@ class Help (commands.Cog) :
                 embed.add_field(name="`%sload` [*모듈명*]" %commandInt, value="> 모듈을 로드해요!", inline=False)
                 embed.add_field(name="`%sunload` [*모듈명*]" %commandInt, value="> 모듈을 언로드해요!", inline=False)
                 embed.add_field(name="`%sreload` [*모듈명*]" %commandInt, value="> 모듈을 리로드해요!", inline=False)
+                embed.add_field(name="`%sserverinfo`" %commandInt, value="봇 서버의 사양을 알려줘요!", inline=True)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.send(embed=embed)
 
