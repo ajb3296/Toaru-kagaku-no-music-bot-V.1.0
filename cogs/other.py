@@ -19,18 +19,18 @@ class Other (commands.Cog) :
         embed=discord.Embed(title="**절 당신이 관리하는 서버에 초대해주시다니!**", description="정말 감사합니다! [여기](<%s>)를 눌러 서버에 초대해주세요!" %link, color=color_code)
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
+        
+    @commands.command (name = 'javaver', aliases = ['java', 'javaversion', '자바', '자바버전'])
+    async def javaver(self, ctx):
+        res = subprocess.check_output("java --version", shell=True, encoding='utf-8')
+        embed=discord.Embed(title="**Java 버전**", description="```%s```" %res, color=color_code)
+        embed.set_footer(text=BOT_NAME_TAG_VER)
+        await ctx.send(embed=embed)
 
-    @commands.command (name = 'serverinfo', aliases = ['서버현황', '서버상태', '서버'])
-    async def serverinfo(self, ctx) :
-        embed=discord.Embed(title="**봇 서버 현황**", color=color_code)
-        embed.add_field(name="Platform", value=platform.platform(), inline=False)
-        embed.add_field(name="Kernel", value=platform.version(), inline=False)
-        embed.add_field(name="Architecture", value=platform.machine(), inline=False)
-        embed.add_field(name="CPU Usage", value=str(psutil.cpu_percent()) +"%", inline=False)
-        memorystr = str(round((psutil.virtual_memory().used / (1024.0 ** 3)), 1)) + "GB" + " / " + str(round((psutil.virtual_memory().total / (1024.0 ** 3)), 1)) + "GB"
-        embed.add_field(name="Memory Usage", value=memorystr, inline=False)
-        embed.add_field(name="Python Ver", value=("%s %s") %(platform.python_implementation(), platform.python_version()), inline=False)
-        embed.add_field(name="Ping", value=str(round(self.bot.latency * 1000)) + "ms", inline=False)
+    @commands.command (name = 'uptime', aliases = ['업타임'])
+    async def uptime(self, ctx):
+        res = subprocess.check_output("uptime", shell=True, encoding='utf-8')
+        embed=discord.Embed(title="**Uptime**", description="```%s```" %res.replace(',  ', '\n').replace(': ', ' : ')[1:], color=color_code)
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
