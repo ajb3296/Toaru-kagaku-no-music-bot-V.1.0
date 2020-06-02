@@ -60,7 +60,7 @@ class Help (commands.Cog) :
                 embed.add_field(name="`%sload` [*모듈명*]" %commandInt, value="> 모듈을 로드해요!", inline=False)
                 embed.add_field(name="`%sunload` [*모듈명*]" %commandInt, value="> 모듈을 언로드해요!", inline=False)
                 embed.add_field(name="`%sreload` [*모듈명*]" %commandInt, value="> 모듈을 리로드해요!", inline=False)
-                embed.add_field(name="`%sserverinfo`" %commandInt, value="봇 서버의 사양을 알려줘요!", inline=True)
+                embed.add_field(name="`%sserverinfo`" %commandInt, value="봇 서버의 사양을 알려줘요!", inline=False)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.send(embed=embed)
 
