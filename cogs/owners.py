@@ -5,6 +5,8 @@ import asyncio
 from discord.ext import commands
 from utils.misc import footer
 from config import OWNERS, color_code, BOT_NAME_TAG_VER, BOT_NAME, EXTENSIONS
+import platform
+import psutil
 
 def insert_returns(body):
     if isinstance(body[-1], ast.Expr):
