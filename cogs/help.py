@@ -44,7 +44,7 @@ class Help (commands.Cog) :
                 embed.add_field(name=":regional_indicator_q: | `%sq` *(페이지 수)*" %commandInt, value="> 재생목록 리스트의 *(페이지 수)*의 페이지에 있는 재생목록을 알려드려요!\n> `%s큐` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":play_pause: | `%spause`" %commandInt, value="> 음악을 일시정지해요!\n> `%s일시정지` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":twisted_rightwards_arrows: | `%sshuffle`" %commandInt, value="> 다음 곡부터 재생목록의 음악들이 랜덤으로 나와요\n> `%s셔플` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
-                embed.add_field(name=":repeat: | `%srepeat`" %commandInt, value="> 현재 듣고 계시는 노래를 포함한 재생목록의 모든 노래를 반복해서 들려드려요!\n> `%sloop`, `%s볼륨`, `%s음량` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
+                embed.add_field(name=":repeat: | `%srepeat`" %commandInt, value="> 현재 듣고 계시는 노래를 포함한 재생목록의 모든 노래를 반복해서 들려드려요!\n> `%sloop`,`%sl`, `%s반복`, `%sㅣ` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt, commandInt), inline=False)
                 embed.add_field(name=":stop_button: | `%sstop` *(분)*" %commandInt, value="> 듣고 계시는 음악을 끄고 재생목록을 제거해요!\n> 분 에 분단위 시간을 넣으시면 해당 분 후 음악이 자동으로 멈춥니다!\n> `%s중지`, `%s정지` 을(를) 사용할 수도 있어요." %(commandInt, commandInt), inline=False)
                 embed.add_field(name=":clock: | `%sseek` [*+(초) 혹은 -(초)*]" %commandInt, value="> 음악을 명령어 뒤의 숫자만큼 초단위로 진행시간을 조절해요!\n> `%s탐색` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":asterisk: | `%sremove` [*재생목록에서의 음악 순서 번호*]" %commandInt, value="> 재생목록에서 음악을 제거해요!\n> `%s제거` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
