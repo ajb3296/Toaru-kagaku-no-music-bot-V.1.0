@@ -88,7 +88,7 @@ class Music(commands.Cog):
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['forceskip', '스킵'])
+    @commands.command(aliases=['forceskip', '스킵', 's', 'ㄴ'])
     async def skip(self, ctx):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
