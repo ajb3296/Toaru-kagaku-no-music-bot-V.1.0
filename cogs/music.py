@@ -6,6 +6,8 @@ import asyncio
 from discord.ext import commands
 from config import BOT_ID, color_code, BOT_NAME_TAG_VER
 from cogs.music_modules import *
+from utils.crawler import getReqTEXT
+from bs4 import BeautifulSoup
 
 url_rx = re.compile('https?:\\/\\/(?:www\\.)?.+')  # noqa: W605
 class Music(commands.Cog):
@@ -14,6 +16,8 @@ class Music(commands.Cog):
         self._ = BOT_ID
         self.normal_color = color_code
         self.not_playing = "음악이 재생되고 있지 않습니다!"
+        self.melon_url = 'https://www.melon.com/chart/index.htm'
+        self.header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
         if not hasattr(bot, 'lavalink'):  # This ensures the client isn't overwritten during cog reloads.
             bot.lavalink = lavalink.Client(self._)
             bot.lavalink.add_node('0.0.0.0', 2333, 'ajb8521580@', 'en', 'ajb8533296')  # Host, Port, Password, Region, Name
