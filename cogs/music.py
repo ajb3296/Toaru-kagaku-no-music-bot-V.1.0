@@ -78,6 +78,54 @@ class Music(commands.Cog):
         await ctx.send(embed=embed)
         if not player.is_playing:
             await player.play()
+            
+    @commands.command(aliases=['멜론재생', '멜론차트재생'])
+    async def melonplay(self, ctx):
+        player = self.bot.lavalink.player_manager.get(ctx.guild.id)
+        data = await getReqTEXT (self.melon_url, self.header)
+        parse = BeautifulSoup(data, 'lxml')
+        titles = parse.find_all("div", {"class": "ellipsis rank01"})
+        songs = parse.find_all("div", {"class": "ellipsis rank02"})
+        title = []
+        song = []
+        for t in titles:
+            title.append(t.find('a').text)
+        for s in songs:
+            song.append(s.find('span', {"class": "checkEllipsis"}).text)
+        trackcount=0
+        passmusic = "없음"
+        playmusic = "없음"
+        for i in range(0, 10) :
+            musicname = str(f'{title[i]} - {song[i]}')
+            query = musicname.strip('<>')
+            if not url_rx.match(query):
+                query = f'ytsearch:{query}'
+            results = await player.node.get_tracks(query)
+            embed = discord.Embed(color=self.normal_color)
+
+            if results['loadType'] == 'PLAYLIST_LOADED':
+                if passmusic == "없음":
+                    passmusic = musicname
+                else:
+                    passmusic = "%s\n%s" %(passmusic, musicname)
+                pass
+            else:
+                track = results['tracks'][0]
+                if playmusic == "없음":
+                    playmusic = musicname
+                else:
+                    playmusic = "%s\n%s" %(playmusic, playmusic)
+                if not trackcount == 1:
+                    info = track['info']
+                    trackcount = 1
+                track = lavalink.models.AudioTrack(track, ctx.author.id, recommended=True)
+                player.add(requester=ctx.author.id, track=track)
+        embed=discord.Embed(title="멜론차트 음악 재생!", description='재생한 음악 :\n%s\n\n건너뛴 음악 :\n%s' %(playmusic, passmusic), color=self.normal_color)
+        embed.set_image(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+        embed.set_footer(text=BOT_NAME_TAG_VER)
+        await ctx.send(embed=embed)
+        if not player.is_playing:
+            await player.play()
 
     @commands.command(aliases=['탐색'])
     async def seek(self, ctx, *, seconds: int):
