@@ -3,11 +3,20 @@ import re
 import discord
 import lavalink
 import asyncio
+import json
 from discord.ext import commands
 from config import BOT_ID, color_code, BOT_NAME_TAG_VER
-from cogs.music_modules import *
 from utils.crawler import getReqTEXT
 from bs4 import BeautifulSoup
+
+async def volumeicon(vol : int):
+    if vol >= 1 and vol <= 300:
+        volicon = ":speaker:"
+    elif vol >= 301 and vol <= 600:
+        volicon = ":sound:"
+    else:
+        volicon = ":loud_sound:"
+    return volicon
 
 url_rx = re.compile('https?:\\/\\/(?:www\\.)?.+')  # noqa: W605
 class Music(commands.Cog):
@@ -20,7 +29,7 @@ class Music(commands.Cog):
         self.header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
         if not hasattr(bot, 'lavalink'):  # This ensures the client isn't overwritten during cog reloads.
             bot.lavalink = lavalink.Client(self._)
-            bot.lavalink.add_node('0.0.0.0', 2333, 'ajb8521580@', 'en', 'ajb8533296')  # Host, Port, Password, Region, Name
+            bot.lavalink.add_node('127.0.0.1', 2333, '3296', 'en', 'ajb')  # Host, Port, Password, Region, Name
             bot.add_listener(bot.lavalink.voice_update_handler, 'on_socket_response')
         bot.lavalink.add_event_hook(self.track_hook)
 
@@ -48,18 +57,40 @@ class Music(commands.Cog):
         ws = self.bot._connection._get_websocket(guild_id)
         await ws.voice_state(str(guild_id), channel_id)
 
+    @commands.command(aliases=['들어와', 'c', 'ㅊ'])
+    async def connect(self, ctx):
+        player = self.bot.lavalink.player_manager.get(ctx.guild.id)
+        if not player.is_connected:
+            await self.connect_to(ctx.guild.id, ctx.author.voice.channel.id)
+            embed=discord.Embed(title=":white_check_mark: | 음성 채널에 접속했어요!", description='', color=self.normal_color)
+            embed.set_footer(text=BOT_NAME_TAG_VER)
+            return await ctx.send(embed=embed)
+        else:
+            embed=discord.Embed(title=":white_check_mark: | 이미 음성 채널에 접속해 있어요!", description='', color=self.normal_color)
+            embed.set_footer(text=BOT_NAME_TAG_VER)
+            return await ctx.send(embed=embed)
+
     @commands.command(aliases=['p', '재생', 'ㅔ', 'add'])
     async def play(self, ctx, *, query: str):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         query = query.strip('<>')
         if not url_rx.match(query):
             query = f'ytsearch:{query}'
-        results = await player.node.get_tracks(query)
-        if not results or not results['tracks']:
-            embed=discord.Embed(title="아무것도 찾을 수 없어요!", description='', color=self.normal_color)
-            embed.set_footer(text=BOT_NAME_TAG_VER)
-            return await ctx.send(embed=embed)
+        nofind = 0
+        while True:
+            results = await player.node.get_tracks(query)
+            if not results or not results['tracks']:
+                if nofind < 3:
+                    nofind += 1
+                elif nofind == 3:
+                    embed=discord.Embed(title="아무것도 찾지 못했어요!", description='', color=self.normal_color)
+                    embed.set_footer(text=BOT_NAME_TAG_VER)
+                    return await ctx.send(embed=embed)
+            else:
+                break
+
         embed = discord.Embed(color=self.normal_color)
+
         if results['loadType'] == 'PLAYLIST_LOADED':
             tracks = results['tracks']
             trackcount = 0
@@ -70,6 +101,7 @@ class Music(commands.Cog):
                 player.add(requester=ctx.author.id, track=track)
             embed.title = ':arrow_forward: | 플레이리스트 재생!'
             embed.description = f'{results["playlistInfo"]["name"]} - {len(tracks)} tracks'
+
         else:
             track = results['tracks'][0]
             embed.title = ':arrow_forward: | 음악 재생!'
@@ -82,8 +114,8 @@ class Music(commands.Cog):
         await ctx.send(embed=embed)
         if not player.is_playing:
             await player.play()
-            
-    @commands.command(aliases=['멜론재생', '멜론차트재생'])
+
+    @commands.command(aliases=['멜론재생', '멜론차트재생', '멜론음악'])
     async def melonplay(self, ctx):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         data = await getReqTEXT (self.melon_url, self.header)
@@ -100,31 +132,37 @@ class Music(commands.Cog):
         passmusic = "없음"
         playmusic = "없음"
         for i in range(0, 10) :
-            musicname = str(f'{title[i]} - {song[i]}')
+            musicname = str(f'{song[i]} {title[i]}')
             query = musicname.strip('<>')
             if not url_rx.match(query):
                 query = f'ytsearch:{query}'
-            results = await player.node.get_tracks(query)
-            embed = discord.Embed(color=self.normal_color)
 
-            if results['loadType'] == 'PLAYLIST_LOADED':
-                if passmusic == "없음":
-                    passmusic = musicname
+            nofind = 0
+            while True:
+                results = await player.node.get_tracks(query)
+                if results['loadType'] == 'PLAYLIST_LOADED' or not results or not results['tracks']:
+                    if nofind < 3:
+                        nofind += 1
+                    elif nofind == 3:
+                        if passmusic == "없음":
+                            passmusic = musicname
+                        else:
+                            passmusic = "%s\n%s" %(passmusic, musicname)
                 else:
-                    passmusic = "%s\n%s" %(passmusic, musicname)
-                pass
+                    break
+
+            track = results['tracks'][0]
+            if playmusic == "없음":
+                playmusic = musicname
             else:
-                track = results['tracks'][0]
-                if playmusic == "없음":
-                    playmusic = musicname
-                else:
-                    playmusic = "%s\n%s" %(playmusic, playmusic)
-                if not trackcount == 1:
-                    info = track['info']
-                    trackcount = 1
-                track = lavalink.models.AudioTrack(track, ctx.author.id, recommended=True)
-                player.add(requester=ctx.author.id, track=track)
-        embed=discord.Embed(title="멜론차트 음악 재생!", description='재생한 음악 :\n%s\n\n건너뛴 음악 :\n%s' %(playmusic, passmusic), color=self.normal_color)
+                playmusic = "%s\n%s" %(playmusic, musicname)
+            if not trackcount == 1:
+                info = track['info']
+                trackcount = 1
+            track = lavalink.models.AudioTrack(track, ctx.author.id, recommended=True)
+            player.add(requester=ctx.author.id, track=track)
+
+        embed=discord.Embed(title=":arrow_forward: | 멜론차트 음악 재생!", description='재생한 음악 :\n%s\n\n찾지 못한 음악 :\n%s' %(playmusic, passmusic), color=self.normal_color)
         embed.set_image(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
@@ -211,7 +249,7 @@ class Music(commands.Cog):
         embed.set_footer(text=f'페이지 {page}/{pages}\n%s' %BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['resume', '일시정지', '일시중지'])
+    @commands.command(aliases=['resume', '일시정지', '일시중지', '재개'])
     async def pause(self, ctx):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
@@ -288,7 +326,7 @@ class Music(commands.Cog):
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=['유튜브', 'youtube'])
     async def find(self, ctx, *, query):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not query.startswith('ytsearch:') and not query.startswith('scsearch:'):
@@ -328,20 +366,21 @@ class Music(commands.Cog):
 
     async def ensure_voice(self, ctx):
         player = self.bot.lavalink.player_manager.create(ctx.guild.id, endpoint=str(ctx.guild.region))
-        should_connect = ctx.command.name in ('play')  
+        should_connect = ctx.command.name in ('play', 'melonplay', 'connect',)
+
         if not ctx.author.voice or not ctx.author.voice.channel:
             raise commands.CommandInvokeError('먼저 음성 채널에 들어와주세요.')
         if not player.is_connected:
             if not should_connect:
-                raise commands.CommandInvokeError('음성 채널에 연결되어 있지 않아요!')
+                raise commands.CommandInvokeError(':warning: | 음성 채널에 연결되어 있지 않아요!')
             permissions = ctx.author.voice.channel.permissions_for(ctx.me)
             if not permissions.connect or not permissions.speak:  
-                raise commands.CommandInvokeError('권한이 없어요! (Connect, Speak 권한을 주세요!)')
+                raise commands.CommandInvokeError(':warning: | 권한이 없어요! (Connect, Speak 권한을 주세요!)')
             player.store('channel', ctx.channel.id)
             await self.connect_to(ctx.guild.id, str(ctx.author.voice.channel.id))
         else:
             if int(player.channel_id) != ctx.author.voice.channel.id:
-                raise commands.CommandInvokeError('다른 음성 채널에 있어요! 제가 있는 음성 채널로 와주세요.')
+                raise commands.CommandInvokeError(':warning: | 다른 음성 채널에 있어요! 제가 있는 음성 채널로 와주세요.')
 
 
 def setup(bot):
