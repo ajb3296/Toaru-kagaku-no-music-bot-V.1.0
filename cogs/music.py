@@ -57,7 +57,7 @@ class Music(commands.Cog):
         ws = self.bot._connection._get_websocket(guild_id)
         await ws.voice_state(str(guild_id), channel_id)
 
-    @commands.command(aliases=['들어와', 'c', 'ㅊ'])
+    @commands.command(aliases=['join', '들어와', 'c', 'ㅊ'])
     async def connect(self, ctx):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_connected:
