@@ -50,7 +50,7 @@ class Help (commands.Cog) :
                 embed.add_field(name=":clock: | `%sseek` [*+(초) 혹은 -(초)*]" %commandInt, value="> 음악을 명령어 뒤의 숫자만큼 초단위로 진행시간을 조절해요!\n> `%s탐색` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":asterisk: | `%sremove` [*재생목록에서의 음악 순서 번호*]" %commandInt, value="> 재생목록에서 음악을 제거해요!\n> `%s제거` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":globe_with_meridians: | `%sfind` [*검색하실 음악명*]" %commandInt, value="> Youtube 에서 음악을 검색하고 결과를 알려드려요!", inline=False)
-                embed.add_field(name=":melon: | `%smelonplay`" %commandInt, value="> 멜론 차트 1~10위의 곡을 유튜브에서 검색후 재생목록에 추가합니다!\n> `%s멜론재생`, `%s멜론음악`, `%s멜론차트재생` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
+                embed.add_field(name=":melon: | `%smelonplay`" %commandInt, value="> 멜론 차트 1~10위의 곡을 재생목록에 추가합니다!\n> `%s멜론재생`, `%s멜론음악`, `%s멜론차트재생` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.send(embed=embed)
 
