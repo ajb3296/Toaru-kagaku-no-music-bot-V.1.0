@@ -36,6 +36,7 @@ class Help (commands.Cog) :
         elif arg == "MUSIC" or arg == "음악":
             if "cogs.music" in EXTENSIONS:
                 embed=discord.Embed(title="**음악 명령어**", description='소괄호 () 은(는) 옵션인 경우 쓰입니다. 명령어 뒷쪽의 모든 괄호는 빼주세요!', color=color_code)
+                embed.add_field(name=":white_check_mark: | `%sconnect`" %commandInt, value="> 음성 채널에 접속해요!\n> `%sjoin`, `%sc`, `%s들어와`, `%sㅊ`  을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt, commandInt), inline=False)
                 embed.add_field(name=":arrow_forward: | `%splay` [*음악 이름 혹은 Youtube 링크*]" %commandInt, value="> 음악을 재생해요!\n> `%sp`, `%s재생`, `%sㅔ`  을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
                 embed.add_field(name=":x: | `%sdisconnect`" %commandInt, value="> 음성 채널을 나갑니다.\n> `%sdc`, `%s연결해제`, `%s나가` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
                 embed.add_field(name=":track_next: | `%sskip`" %commandInt, value="> 다음 곡으로 넘어갑니다!\n> `%s스킵`, `%ss`, `%sㄴ` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
@@ -49,6 +50,7 @@ class Help (commands.Cog) :
                 embed.add_field(name=":clock: | `%sseek` [*+(초) 혹은 -(초)*]" %commandInt, value="> 음악을 명령어 뒤의 숫자만큼 초단위로 진행시간을 조절해요!\n> `%s탐색` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":asterisk: | `%sremove` [*재생목록에서의 음악 순서 번호*]" %commandInt, value="> 재생목록에서 음악을 제거해요!\n> `%s제거` 을(를) 사용할 수도 있어요." %commandInt, inline=False)
                 embed.add_field(name=":globe_with_meridians: | `%sfind` [*검색하실 음악명*]" %commandInt, value="> Youtube 에서 음악을 검색하고 결과를 알려드려요!", inline=False)
+                embed.add_field(name=":melon: | `%smelonplay`" %commandInt, value="> 멜론 차트 1~10위의 곡을 유튜브에서 검색후 재생목록에 추가합니다!\n> `%s멜론재생`, `%s멜론음악`, `%s멜론차트재생` 을(를) 사용할 수도 있어요." %(commandInt, commandInt, commandInt), inline=False)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.send(embed=embed)
 
