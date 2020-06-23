@@ -331,11 +331,17 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not query.startswith('ytsearch:') and not query.startswith('scsearch:'):
             query = 'ytsearch:' + query
-        results = await player.node.get_tracks(query)
-        if not results or not results['tracks']:
-            embed=discord.Embed(title="음악을 찾을 수 없어요...", description='', color=self.normal_color)
-            embed.set_footer(text=BOT_NAME_TAG_VER)
-            return await ctx.send(embed=embed)
+        search_count = 1
+        while True:
+            results = await player.node.get_tracks(query)
+            if not results or not results['tracks']:
+                if not search_count == 3:
+                    search_count += 1
+                else:
+                    embed=discord.Embed(title="음악을 찾을 수 없어요...", description='', color=self.normal_color)
+                    embed.set_footer(text=BOT_NAME_TAG_VER)
+                    return await ctx.send(embed=embed)
+            break
         tracks = results['tracks'][:10]  # First 10 results
         o = ''
         for index, track in enumerate(tracks, start=1):
