@@ -109,7 +109,7 @@ class Music(commands.Cog):
             info = track['info']
             track = lavalink.models.AudioTrack(track, ctx.author.id, recommended=True)
             player.add(requester=ctx.author.id, track=track)
-        embed.set_image(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+        embed.set_thumbnail(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
         if not player.is_playing:
@@ -163,7 +163,7 @@ class Music(commands.Cog):
             player.add(requester=ctx.author.id, track=track)
 
         embed=discord.Embed(title=":arrow_forward: | 멜론차트 음악 재생!", description='재생한 음악 :\n%s\n\n찾지 못한 음악 :\n%s' %(playmusic, passmusic), color=self.normal_color)
-        embed.set_image(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+        embed.set_thumbnail(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
         if not player.is_playing:
