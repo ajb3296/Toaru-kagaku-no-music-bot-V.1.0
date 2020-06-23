@@ -226,6 +226,7 @@ class Music(commands.Cog):
         song = f'**[{player.current.title}]({player.current.uri})**\n({position}/{duration})'
         embed = discord.Embed(color=self.normal_color,
                               title=':arrow_down_small: | 현재 재생중인 곡', description=song)
+        embed.set_thumbnail(url="%s/0.jpg"%player.current.uri.replace('https://www.youtube.com/watch?v=', 'http://img.youtube.com/vi/'))
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
