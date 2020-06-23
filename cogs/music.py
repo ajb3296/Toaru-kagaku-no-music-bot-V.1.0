@@ -372,7 +372,7 @@ class Music(commands.Cog):
 
     async def ensure_voice(self, ctx):
         player = self.bot.lavalink.player_manager.create(ctx.guild.id, endpoint=str(ctx.guild.region))
-        should_connect = ctx.command.name in ('play', 'melonplay', 'connect',)
+        should_connect = ctx.command.name in ('play', 'melonplay', 'connect', 'find',)
 
         if not ctx.author.voice or not ctx.author.voice.channel:
             raise commands.CommandInvokeError('먼저 음성 채널에 들어와주세요.')
