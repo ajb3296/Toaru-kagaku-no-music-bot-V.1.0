@@ -8,6 +8,7 @@ import random
 import platform
 import psutil
 from utils.misc import footer
+import subprocess
 
 class Other (commands.Cog) :
     def __init__ (self, bot) :
