@@ -311,7 +311,7 @@ class Music(commands.Cog):
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['제거'])
+    @commands.command(aliases=['제거', 'rm'])
     async def remove(self, ctx, index: int):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.queue:
