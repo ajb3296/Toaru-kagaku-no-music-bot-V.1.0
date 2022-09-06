@@ -1,4 +1,4 @@
-TOKEN = 'NzE0MTQwNDYxODQwNzI4MTQ0.Xssxrw.brLnMsW6qVgDHQYn2oyD4vCvCFk'
+TOKEN = ''
 EXTENSIONS = ['cogs.owners',
             'cogs.help',
             'cogs.other',
@@ -14,4 +14,4 @@ BOT_ID = 714140461840728144
 BOT_NAME_TAG_VER = "%s%s | %s" %(BOT_NAME, BOT_TAG, BOT_VER)
 color_code = 0xc68e6e
 
-lavalinklink = "https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.3.1_1050/Lavalink.jar"
+lavalinklink = "https://github.com/freyacodes/Lavalink/releases/latest/download/Lavalink.jar"
